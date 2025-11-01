@@ -48,9 +48,9 @@ const MinimumOrderCalculator = () => {
       return;
     }
 
-    const sum = avgTicketSize + deliveryFeeCustomer;
+    const deliveryFee = deliveryFeeCustomer;
     const rate = commissionRate + profitMargin;
-    const rawValue = sum / rate;
+    const rawValue = deliveryFee / rate;
     const roundedValue = roundUpToNearest50(rawValue);
 
     setResult({
@@ -62,7 +62,7 @@ const MinimumOrderCalculator = () => {
         profitMargin,
       },
       steps: {
-        sum,
+        deliveryFee,
         rate,
         rawValue,
         roundedValue,
@@ -206,7 +206,7 @@ const MinimumOrderCalculator = () => {
                   Formula
                 </h2>
                 <p className="mt-2 text-sm font-mono bg-white/70 rounded-lg px-3 py-2">
-                  (Average Ticket Size + Delivery Fee) / (Commission Rate + Profit Margin)
+                  Delivery Fee / (Commission Rate + Profit Margin)
                 </p>
               </div>
 
@@ -215,7 +215,7 @@ const MinimumOrderCalculator = () => {
                   Substitution
                 </h2>
                 <p className="mt-2 text-sm font-mono bg-white/70 rounded-lg px-3 py-2">
-                  ({result.inputs.avgTicketSize} + {result.inputs.deliveryFeeCustomer}) / (
+                  {result.inputs.deliveryFeeCustomer} / (
                   {result.inputs.commissionRate} + {result.inputs.profitMargin})
                 </p>
               </div>
@@ -226,15 +226,14 @@ const MinimumOrderCalculator = () => {
                 </h2>
                 <div className="space-y-1 text-sm font-mono text-slate-600">
                   <p>
-                    Step 1: ({result.inputs.avgTicketSize} + {result.inputs.deliveryFeeCustomer}) ={" "}
-                    {result.steps.sum.toFixed(2)}
+                    Step 1: Delivery Fee = {result.steps.deliveryFee.toFixed(2)}
                   </p>
                   <p>
                     Step 2: ({result.inputs.commissionRate} + {result.inputs.profitMargin}) ={" "}
                     {result.steps.rate.toFixed(2)}
                   </p>
                   <p>
-                    Step 3: {result.steps.sum.toFixed(2)} / {result.steps.rate.toFixed(2)} ={" "}
+                    Step 3: {result.steps.deliveryFee.toFixed(2)} / {result.steps.rate.toFixed(2)} ={" "}
                     {result.steps.rawValue.toFixed(2)}
                   </p>
                   <p>
